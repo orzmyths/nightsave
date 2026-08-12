@@ -45,5 +45,17 @@
   "profile.defaultCity": "預設城市",
   "profile.defaultZip": "預設郵遞區號",
   "profile.createAccount": "建個帳號把進度存起來 換手機也不怕",
-  "auth.guestWarning": "這台裝置上有你的進度 登入既有帳號目前還不會把訪客進度轉過去"
+  "auth.guestWarning": "這台裝置上有你的進度 登入既有帳號目前還不會把訪客進度轉過去",
+  "auth.createAccount": "建立帳號",
+  "auth.signIn": "登入",
+  "auth.backToWelcome": "回到開始",
+  "auth.confirmEmail": "請到信箱點確認連結 再回來登入",
+  "auth.fieldsRequired": "請填入 email 和密碼",
+  "auth.error.invalidCredentials": "email 或密碼不對",
+  "auth.error.rateLimit": "嘗試太多次 請稍等一下再試",
+  "auth.error.userExists": "這個 email 已經註冊過了",
+  "auth.error.weakPassword": "密碼太短 至少要六個字元",
+  "auth.error.invalidEmail": "這個 email 格式看起來怪怪的",
+  "auth.error.emailNotConfirmed": "請先到信箱確認你的 email",
+  "auth.error.generic": "出了點狀況 請再試一次"
 }

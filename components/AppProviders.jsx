@@ -4,22 +4,45 @@ import { AuthProvider, useAuth } from "../lib/auth";
 import { I18nProvider } from "../lib/i18n";
 import { getRepo } from "../lib/repo";
 
-// When signed in, read the saved language from the cloud profile and feed it
-// to I18nProvider as cloudLang (which overrides the local guess). Guests and
-// pre-auth users fall back to browser detection + local storage.
+const LOCAL_LANG_KEY = "nightsave_lang";
+
+// Language resolution across auth:
+//  - not signed in: browser detect + local storage (handled inside I18nProvider)
+//  - signed in:
+//      * if the cloud profile already has a non-default language → cloud wins
+//      * if the profile is still at default 'en' but the user picked a language
+//        during onboarding (local differs) → push local up once, and use it
+//    This fixes profiles.app_language staying 'en' after an onboarding choice,
+//    while never clobbering a language the user deliberately set in the cloud.
 function LangBridge({ children }) {
-  const { session, mode } = useAuth();
+  const { session } = useAuth();
   const [cloudLang, setCloudLang] = useState(undefined);
 
   useEffect(() => {
     let active = true;
-    if (session) {
-      getRepo(session).getProfile()
-        .then((p) => { if (active) setCloudLang(p?.app_language || undefined); })
-        .catch(() => {});
-    } else {
-      setCloudLang(undefined);
-    }
+    if (!session) { setCloudLang(undefined); return; }
+
+    (async () => {
+      try {
+        const repo = getRepo(session);
+        const profile = await repo.getProfile();
+        const cloud = profile?.app_language;
+        let local = null;
+        try { local = localStorage.getItem(LOCAL_LANG_KEY); } catch {}
+
+        if (cloud && cloud !== "en") {
+          if (active) setCloudLang(cloud);           // cloud authoritative
+        } else if (local && local !== "en") {
+          try { await repo.setAppLanguage(local); } catch {} // retry-safe
+          if (active) setCloudLang(local);           // carry onboarding choice up
+        } else if (active) {
+          setCloudLang(cloud || "en");
+        }
+      } catch {
+        if (active) setCloudLang(undefined);
+      }
+    })();
+
     return () => { active = false; };
   }, [session]);
 

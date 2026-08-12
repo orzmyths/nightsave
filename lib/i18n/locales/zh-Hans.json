@@ -45,5 +45,17 @@
   "profile.defaultCity": "默认城市",
   "profile.defaultZip": "默认邮政编码",
   "profile.createAccount": "创建账号把进度存起来 换手机也不怕",
-  "auth.guestWarning": "这台设备上有你的进度 登录已有账号目前还不会把访客进度转过去"
+  "auth.guestWarning": "这台设备上有你的进度 登录已有账号目前还不会把访客进度转过去",
+  "auth.createAccount": "创建账号",
+  "auth.signIn": "登录",
+  "auth.backToWelcome": "回到开始",
+  "auth.confirmEmail": "请到邮箱点确认链接 再回来登录",
+  "auth.fieldsRequired": "请填入 email 和密码",
+  "auth.error.invalidCredentials": "email 或密码不对",
+  "auth.error.rateLimit": "尝试太多次 请稍等一下再试",
+  "auth.error.userExists": "这个 email 已经注册过了",
+  "auth.error.weakPassword": "密码太短 至少要六个字符",
+  "auth.error.invalidEmail": "这个 email 格式看起来不太对",
+  "auth.error.emailNotConfirmed": "请先到邮箱确认你的 email",
+  "auth.error.generic": "出了点状况 请再试一次"
 }

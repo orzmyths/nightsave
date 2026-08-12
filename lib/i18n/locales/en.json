@@ -45,5 +45,17 @@
   "profile.defaultCity": "Default City",
   "profile.defaultZip": "Default ZIP",
   "profile.createAccount": "Create an account to keep your progress safe and sync it across devices.",
-  "auth.guestWarning": "You have progress saved on this device. Logging into an existing account will not transfer this guest progress yet."
+  "auth.guestWarning": "You have progress saved on this device. Logging into an existing account will not transfer this guest progress yet.",
+  "auth.createAccount": "Create Account",
+  "auth.signIn": "Sign In",
+  "auth.backToWelcome": "Back to start",
+  "auth.confirmEmail": "Check your email to confirm, then log in.",
+  "auth.fieldsRequired": "Email and password required",
+  "auth.error.invalidCredentials": "Wrong email or password.",
+  "auth.error.rateLimit": "Too many attempts. Please wait a moment and try again.",
+  "auth.error.userExists": "An account with this email already exists.",
+  "auth.error.weakPassword": "Password is too short. Use at least 6 characters.",
+  "auth.error.invalidEmail": "That email doesn't look right.",
+  "auth.error.emailNotConfirmed": "Please confirm your email first.",
+  "auth.error.generic": "Something went wrong. Please try again."
 }

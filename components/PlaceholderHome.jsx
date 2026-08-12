@@ -5,18 +5,18 @@ import { useI18n, LOCALES } from "../lib/i18n";
 import { getRepo } from "../lib/repo";
 import { T, card, btn, label, screen, wrap } from "../lib/ui/theme";
 
-// Temporary landing for Phase 2. The real 4-tab app arrives in Phase 3.
+// Temporary integration slot for Phase 2. The REAL NightSave v0.1 Home replaces
+// this component next — everything around it (auth, guest, i18n, repo) is ready.
 export default function PlaceholderHome() {
-  const { session, isGuest, signOut } = useAuth();
+  const { session, isGuest, signOut, leaveGuest } = useAuth();
   const { t, locale, changeLocale } = useI18n();
   const [saving, setSaving] = useState(false);
 
   async function pickLang(code) {
     changeLocale(code);
     if (session) {
-      // signed-in language persists to the cloud profile
       setSaving(true);
-      try { await getRepo(session).updateProfile({ app_language: code }); } catch {}
+      try { await getRepo(session).setAppLanguage(code); } catch {}
       setSaving(false);
     }
   }
@@ -61,8 +61,17 @@ export default function PlaceholderHome() {
         <div style={{ height: 24 }} />
 
         {isGuest ? (
-          <div style={{ ...card(), textAlign: "center" }}>
-            <div style={{ color: T.mute, fontSize: 14, lineHeight: 1.5 }}>{t("profile.createAccount")}</div>
+          <div>
+            <div style={{ ...card(), textAlign: "center", marginBottom: 12 }}>
+              <div style={{ color: T.mute, fontSize: 14, lineHeight: 1.5 }}>{t("profile.createAccount")}</div>
+            </div>
+            <button style={btn(T.jade, T.bg)} onClick={() => leaveGuest("signup")}>
+              {t("auth.createAccount")}
+            </button>
+            <div style={{ height: 10 }} />
+            <button style={btn("transparent", T.text)} onClick={() => leaveGuest("login")}>
+              {t("auth.signIn")}
+            </button>
           </div>
         ) : (
           <button style={btn("transparent", T.text)} onClick={signOut}>Log Out</button>

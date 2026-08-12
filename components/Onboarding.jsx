@@ -7,9 +7,11 @@ import { useAuth } from "../lib/auth";
 import { screen, wrap } from "../lib/ui/theme";
 
 // step: "language" | "welcome" | "signup" | "login"
+// If a guest left guest-mode to authenticate, authIntent tells us which step
+// to open directly (skip language), so we don't force language selection again.
 export default function Onboarding() {
-  const [step, setStep] = useState("language");
-  const { continueAsGuest } = useAuth();
+  const { continueAsGuest, authIntent } = useAuth();
+  const [step, setStep] = useState(authIntent || "language");
 
   return (
     <div style={screen()}>

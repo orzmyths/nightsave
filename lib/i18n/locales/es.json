@@ -45,5 +45,17 @@
   "profile.defaultCity": "Ciudad predeterminada",
   "profile.defaultZip": "Código postal predeterminado",
   "profile.createAccount": "Crea una cuenta para guardar tu progreso y sincronizarlo entre dispositivos.",
-  "auth.guestWarning": "Tienes progreso guardado en este dispositivo. Iniciar sesión en una cuenta existente aún no transferirá este progreso de invitado."
+  "auth.guestWarning": "Tienes progreso guardado en este dispositivo. Iniciar sesión en una cuenta existente aún no transferirá este progreso de invitado.",
+  "auth.createAccount": "Crear cuenta",
+  "auth.signIn": "Iniciar sesión",
+  "auth.backToWelcome": "Volver al inicio",
+  "auth.confirmEmail": "Revisa tu correo para confirmar y luego inicia sesión.",
+  "auth.fieldsRequired": "Correo y contraseña obligatorios",
+  "auth.error.invalidCredentials": "Correo o contraseña incorrectos.",
+  "auth.error.rateLimit": "Demasiados intentos. Espera un momento e inténtalo de nuevo.",
+  "auth.error.userExists": "Ya existe una cuenta con este correo.",
+  "auth.error.weakPassword": "La contraseña es muy corta. Usa al menos 6 caracteres.",
+  "auth.error.invalidEmail": "Ese correo no parece válido.",
+  "auth.error.emailNotConfirmed": "Primero confirma tu correo.",
+  "auth.error.generic": "Algo salió mal. Inténtalo de nuevo."
 }

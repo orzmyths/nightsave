@@ -45,5 +45,17 @@
   "profile.defaultCity": "デフォルトの都市",
   "profile.defaultZip": "デフォルトの郵便番号",
   "profile.createAccount": "アカウントを作成して進捗を保存し、端末間で同期しましょう。",
-  "auth.guestWarning": "この端末に進捗が保存されています。既存アカウントへのログインでは、まだこのゲストの進捗は移行されません。"
+  "auth.guestWarning": "この端末に進捗が保存されています。既存アカウントへのログインでは、まだこのゲストの進捗は移行されません。",
+  "auth.createAccount": "アカウント作成",
+  "auth.signIn": "ログイン",
+  "auth.backToWelcome": "最初に戻る",
+  "auth.confirmEmail": "メールを確認してから、ログインしてください。",
+  "auth.fieldsRequired": "メールとパスワードを入力してください",
+  "auth.error.invalidCredentials": "メールアドレスまたはパスワードが違います。",
+  "auth.error.rateLimit": "試行回数が多すぎます。少し待ってからもう一度お試しください。",
+  "auth.error.userExists": "このメールアドレスは既に登録されています。",
+  "auth.error.weakPassword": "パスワードが短すぎます。6文字以上にしてください。",
+  "auth.error.invalidEmail": "メールアドレスの形式が正しくないようです。",
+  "auth.error.emailNotConfirmed": "先にメールアドレスを確認してください。",
+  "auth.error.generic": "問題が発生しました。もう一度お試しください。"
 }

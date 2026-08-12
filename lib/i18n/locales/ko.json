@@ -45,5 +45,17 @@
   "profile.defaultCity": "기본 도시",
   "profile.defaultZip": "기본 우편번호",
   "profile.createAccount": "계정을 만들어 진행 상황을 안전하게 보관하고 기기 간에 동기화하세요.",
-  "auth.guestWarning": "이 기기에 진행 상황이 저장되어 있습니다. 기존 계정으로 로그인해도 아직 이 게스트 진행 상황은 이전되지 않습니다."
+  "auth.guestWarning": "이 기기에 진행 상황이 저장되어 있습니다. 기존 계정으로 로그인해도 아직 이 게스트 진행 상황은 이전되지 않습니다.",
+  "auth.createAccount": "계정 만들기",
+  "auth.signIn": "로그인",
+  "auth.backToWelcome": "처음으로",
+  "auth.confirmEmail": "이메일을 확인한 뒤 로그인하세요.",
+  "auth.fieldsRequired": "이메일과 비밀번호를 입력하세요",
+  "auth.error.invalidCredentials": "이메일 또는 비밀번호가 올바르지 않습니다.",
+  "auth.error.rateLimit": "시도가 너무 많습니다. 잠시 후 다시 시도하세요.",
+  "auth.error.userExists": "이미 가입된 이메일입니다.",
+  "auth.error.weakPassword": "비밀번호가 너무 짧습니다. 6자 이상 사용하세요.",
+  "auth.error.invalidEmail": "이메일 형식이 올바르지 않은 것 같습니다.",
+  "auth.error.emailNotConfirmed": "먼저 이메일을 확인해 주세요.",
+  "auth.error.generic": "문제가 발생했습니다. 다시 시도해 주세요."
 }
