@@ -2,7 +2,7 @@
 import React from "react";
 import { useAuth } from "../lib/auth";
 import Onboarding from "../components/Onboarding";
-import PlaceholderHome from "../components/PlaceholderHome";
+import AppShell from "../components/AppShell";
 import { T, screen } from "../lib/ui/theme";
 
 export default function Page() {
@@ -16,7 +16,7 @@ export default function Page() {
     );
   }
 
-  // signedIn or guest → home; none → onboarding
-  if (mode === "signedIn" || mode === "guest") return <PlaceholderHome />;
+  // signedIn or guest → the real NightSave app; none → onboarding
+  if (mode === "signedIn" || mode === "guest") return <AppShell />;
   return <Onboarding />;
 }
