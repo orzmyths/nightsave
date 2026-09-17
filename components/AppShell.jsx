@@ -21,10 +21,20 @@ export default function AppShell() {
   return (
     <div style={screen()}>
       <div style={{ ...wrap(), paddingBottom: 90 }}>
-        {tab === "home" && <Home />}
-        {tab === "goals" && <Goals />}
-        {tab === "history" && <History />}
-        {tab === "profile" && <Profile />}
+        {/* Home stays mounted across tab switches so an in-progress search/estimate/
+            decision survives visiting Goals/History/Profile. It's only hidden, not
+            unmounted — see Home's `active` prop for the refresh-on-return behavior. */}
+        <div style={{ display: tab === "home" ? "block" : "none" }}>
+          <Home active={tab === "home"} onNavigate={setTab} />
+        </div>
+        {tab !== "home" && (
+          <div key={tab} style={{ animation: "ns-fade 240ms ease" }}>
+            {tab === "goals" && <Goals />}
+            {tab === "history" && <History />}
+            {tab === "profile" && <Profile />}
+          </div>
+        )}
+        <style>{`@keyframes ns-fade{from{opacity:0}to{opacity:1}}`}</style>
       </div>
 
       <nav style={{
