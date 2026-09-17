@@ -58,7 +58,21 @@ No API keys, Supabase keys, or other secrets are included in this repository or 
 
 ## Screenshots
 
-Product screenshots will be added after the public-release review.
+### Home
+
+![NightSave home screen](nightsave-home.png)
+
+### Price Estimate
+
+![NightSave estimate screen](nightsave-estimate.png)
+
+### Decision Flow
+
+![NightSave decision screen](nightsave-running.png)
+
+### Saved Result
+
+![NightSave saved result](nightsave-saved.png)
 
 ## Local Development
 
