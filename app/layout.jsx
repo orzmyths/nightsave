@@ -1,3 +1,5 @@
+import AppProviders from "../components/AppProviders";
+
 export const metadata = {
   title: "NightSave",
   description: "把想花的錢 留給更想要的",
@@ -5,9 +7,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="zh-Hant">
+    <html lang="en">
       <body style={{ margin: 0, background: "#0E1322", fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

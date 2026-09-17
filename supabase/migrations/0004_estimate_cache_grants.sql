@@ -1,0 +1,12 @@
+-- ============================================================
+-- Grant service_role table-level access to estimate_cache.
+-- Paste this whole file into Supabase → SQL Editor → Run.
+--
+-- RLS is enabled on estimate_cache with NO policies (0003), which denies
+-- everyone by default — including service_role, which needs an actual
+-- Postgres GRANT independently of RLS bypass (bypassrls only skips policy
+-- checks, it doesn't imply table privileges). anon/authenticated get no
+-- grant here on purpose: only the server-side service_role key (used
+-- solely by /api/estimate) may read or write this table.
+-- ============================================================
+grant select, insert, update, delete on public.estimate_cache to service_role;
