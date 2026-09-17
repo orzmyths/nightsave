@@ -1,35 +1,161 @@
 # NightSave
 
-半夜想叫外送的攔截器。走完假的下單流程，食物不會來，改成告訴你省下多少，並把錢推向你設定的目標。
+**NightSave** is a multilingual decision-support app that helps you pause before ordering food delivery, see what the order will actually cost, and put the money you don't spend toward a personal savings goal.
 
-## 架構重點
+**Live Demo:** https://nightsave.vercel.app
 
-前端只跟自己的後端講話，估價的 API 金鑰藏在伺服器端（`app/api/estimate/route.js`），前端拿不到，任何人打開網頁也看不到。要換供應商只改環境變數，不動程式。
+NightSave does not process payments, move money, or hold funds on your behalf. It only estimates what an order would cost and lets you log a decision to **Save** or **Eat**, tracking the amount against a goal you set yourself.
 
-- `app/page.jsx` — 介面，進度用 localStorage 存在使用者裝置
-- `app/api/estimate/route.js` — 後端代理，唯一碰金鑰的地方
-- 沒設供應商時會用本地估價 fallback，所以先部署再接 AI 也沒問題
+## Problem and Solution
 
-## 本機跑起來
+Food delivery purchases are often impulsive, made late at night without a clear sense of what the order will actually cost.
 
-    npm install
-    npm run dev
+NightSave introduces a short pause before checkout. It estimates the likely local checkout price of the order, and asks you to choose: **Save** the money toward a goal, or **Eat** and go ahead with the order. Every "Save" decision moves you closer to a goal you've defined for yourself, turning a moment of impulse into a small, trackable win.
 
-打開 http://localhost:3000
+## NightSave v0.2 Features
 
-## 接 MiniMax（或任何 OpenAI 相容供應商）
+Only features that exist in the current codebase are listed here.
 
-1. 複製 `.env.example` 成 `.env.local`
-2. 填 `LLM_BASE_URL` `LLM_MODEL` `LLM_API_KEY` 三個值
-3. 重跑 `npm run dev`
+- Single-item and multi-item order recognition (e.g. "popcorn chicken, milk tea, ramen" is understood as three separate items, each with its own quantity and price)
+- Local price estimates in USD, based on the food description, city, and ZIP code
+- Itemized subtotal with estimated tax, service fee, and delivery fee
+- Editable confirmed amount before making a decision
+- Save or Eat decision flow
+- Personal savings goals with progress tracking
+- One-time goal-completion celebration
+- Decision history grouped by local date
+- Guest mode (no account required) and Supabase-backed accounts
+- Guest-data migration support when a guest signs up, local goals and decisions are migrated to their new account
+- Six-language interface: English, Spanish, Japanese, Korean, Simplified Chinese, and Traditional Chinese
+- Estimate caching (repeat requests for the same order reuse a recent estimate instead of re-querying)
+- Request limits and input validation on order text length and item count
+- Duplicate-request protection against accidental repeat submissions
+- A dedicated loading experience for longer estimate requests
+- Client-side and server-side timeout protection on the estimate request
+- Responsive interface
 
-MiniMax 的 base URL 和 model 字串請以它官方文件當下為準，數字和路徑會變。若在意資料流到中國，用 OpenRouter 這類西方託管路徑（`.env.example` 裡有範例）。
+## Tech Stack
 
-## 部署到 Vercel
+- Next.js
+- React
+- JavaScript
+- Supabase
+- PostgreSQL
+- Vercel
+- MiniMax M3 / LLM API
 
-1. 把這個資料夾推到 GitHub
-2. 在 Vercel 匯入這個 repo
-3. 在 Vercel 專案的 Settings → Environment Variables 填那三個 `LLM_` 變數
+## Architecture Overview
+
+- Browser interface (Next.js / React)
+- Next.js API route that receives estimate requests
+- Server-side LLM request (API key stays server-side only)
+- Server-side validation and total calculation (item limits, subtotal, tax, and fees)
+- Supabase-backed estimate cache
+- Supabase tables for profiles, goals, and decisions
+- Guest localStorage repository for users without an account
+
+No API keys, Supabase keys, or other secrets are included in this repository or this README.
+
+## Screenshots
+
+Product screenshots will be added after the public-release review.
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Required environment variables (names only, see `.env.example` for the file to fill in locally; no values are included here):
+
+```text
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+SUPABASE_SERVICE_ROLE_KEY
+LLM_BASE_URL
+LLM_MODEL
+LLM_API_KEY
+```
+
+- `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are safe to expose to the browser.
+- `SUPABASE_SERVICE_ROLE_KEY` and `LLM_API_KEY` must only ever be used server-side.
+- Never prefix a server-only secret with `NEXT_PUBLIC_`.
+
+## Deployment
+
+NightSave is deployed on Vercel.
+
+1. Push this repository to GitHub.
+2. Import the repository into Vercel.
+3. In the Vercel project's Settings → Environment Variables, set all of the variables listed above.
+4. Deploy.
+
+All required environment variables must be set in the Production environment for the app to function correctly.
+
+## Project Status
+
+```text
+NightSave v0.2 — functional personal product project
+```
+
+Future improvements may be made, but no feature listed above is unfinished or planned only.
+
+## Disclaimer
+
+- Price estimates may differ from actual restaurant or delivery-platform prices.
+- NightSave does not process payments or transfer money.
+- NightSave is a behavioral decision-support tool and does not provide financial advice.
+
+## Author
+
+David Chen
+Management Information Systems student at San José State University
+
+---
+
+## Project Evolution
+
+NightSave was built from scratch and developed through multiple iterations. The archived v0.1 documentation below shows the project's original concept, scope, architecture, and early implementation before it evolved into the current v0.2 product.
+
+This section is preserved to demonstrate the project's development process, technical learning, and product improvements over time.
+
+## NightSave v0.1 — Original Project Documentation
+
+*The following is the original v0.1 README, translated from Chinese into English and archived here for reference. It describes NightSave exactly as it existed at v0.1, before the v0.2 rewrite, and does not include any v0.2 features.*
+
+An interceptor for late-night delivery cravings. It walks you through a fake checkout flow, the food never actually arrives, and instead it tells you how much you saved, then pushes that amount toward a goal you've set.
+
+### Architecture Highlights
+
+The frontend only talks to its own backend. The pricing API key is hidden on the server side (`app/api/estimate/route.js`); the frontend never has access to it, and no one can see it by inspecting the page. Switching providers only requires changing an environment variable, not the code.
+
+- `app/page.jsx` — the interface; progress is stored on the user's device via localStorage
+- `app/api/estimate/route.js` — the backend proxy, the only place that touches the API key
+- When no provider is configured, a local estimate fallback is used, so the app can be deployed before an AI provider is connected
+
+### Running Locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:3000
+
+### Connecting to MiniMax (or any OpenAI-compatible provider)
+
+1. Copy `.env.example` to `.env.local`
+2. Fill in the three values `LLM_BASE_URL`, `LLM_MODEL`, and `LLM_API_KEY`
+3. Restart with `npm run dev`
+
+For MiniMax's base URL and model string, always check its official documentation at the time, since the exact values and paths may change. If you are concerned about data flowing through China, use a Western-hosted path such as OpenRouter instead.
+
+### Deploying to Vercel
+
+1. Push this folder to GitHub
+2. Import this repo into Vercel
+3. In the Vercel project's Settings → Environment Variables, fill in the three `LLM_` variables
 4. Deploy
 
-金鑰只放在 Vercel 的環境變數，不要寫進程式或推上 GitHub。
+Keep the API key only in Vercel's environment variables. Never write it into the code or push it to GitHub.
