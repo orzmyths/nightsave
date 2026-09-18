@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import AppProviders from "../components/AppProviders";
 
 export const metadata = {
@@ -10,6 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body style={{ margin: 0, background: "#0E1322", fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
         <AppProviders>{children}</AppProviders>
+        <Analytics />
       </body>
     </html>
   );
